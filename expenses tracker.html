@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Expenses Tracker</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-image: url(https://img.freepik.com/premium-photo/shiny-glowing-affects-abstract-background-design-caribbean-green-color_851755-73355.jpg?semt=ais_hybrid&w=740);
+      color: #0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 450px;
+      background: #110;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px #0f0;
+    }
+
+    h2, h3 {
+      text-align: center;
+      color: #0f0;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      background: #222;
+      color: #0f0;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: none;
+      border-radius: 5px;
+      background: #0f0;
+      color: #000;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .toggle {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .toggle span {
+      color: #0f0;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    #expensesPage {
+      display: none;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .balance {
+      text-align: center;
+      font-size: 20px;
+      margin: 10px 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    li {
+      background: #222;
+      margin: 5px 0;
+      padding: 8px;
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="authPage">
+      <h2 id="authTitle">Register</h2>
+      <div class="form-group">
+        <input type="text" id="username" placeholder="Username" />
+      </div>
+      <div class="form-group">
+        <input type="password" id="password" placeholder="Password" />
+      </div>
+      <button id="authButton">Register</button>
+      <div class="toggle">
+        Already have an account? <span onclick="toggleForm()">Login here</span>
+      </div>
+    </div>
+
+    <div id="expensesPage">
+      <h2>Expenses Tracker</h2>
+      <div class="balance" id="balance">Balance: $0</div>
+      <button onclick="clearBalance()">Clear Balance</button>
+
+      <div class="section">
+        <h3>Add Income</h3>
+        <input type="number" id="incomeAmount" placeholder="Amount" />
+        <input type="text" id="incomeDesc" placeholder="Description" />
+        <button onclick="addIncome()">Add Income</button>
+        <ul id="incomeList"></ul>
+      </div>
+
+      <div class="section">
+        <h3>Add Expense</h3>
+        <input type="number" id="expenseAmount" placeholder="Amount" />
+        <input type="text" id="expenseDesc" placeholder="Description" />
+        <button onclick="addExpense()">Add Expense</button>
+        <ul id="expenseList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let isLogin = false;
+    let balance = 0;
+
+    function toggleForm() {
+      isLogin = !isLogin;
+      document.getElementById('authTitle').innerText = isLogin ? 'Login' : 'Register';
+      document.getElementById('authButton').innerText = isLogin ? 'Login' : 'Register';
+      document.querySelector('.toggle').innerHTML = isLogin
+        ? "Don't have an account? <span onclick=\"toggleForm()\">Register here</span>"
+        : "Already have an account? <span onclick=\"toggleForm()\">Login here</span>";
+    }
+
+    document.getElementById('authButton').addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username && password) {
+        if (isLogin) {
+          showExpensesPage();
+        } else {
+          toggleForm();
+          alert('Registration successful! Please login.');
+        }
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+
+    function showExpensesPage() {
+      document.getElementById('authPage').style.display = 'none';
+      document.getElementById('expensesPage').style.display = 'block';
+    }
+
+    function updateBalance() {
+      document.getElementById('balance').innerText = `Balance: $${balance}`;
+    }
+
+    function addIncome() {
+      const amount = parseFloat(document.getElementById('incomeAmount').value);
+      const desc = document.getElementById('incomeDesc').value.trim();
+      if (!isNaN(amount) && amount > 0 && desc !== '') {
+        balance += amount;
+        document.getElementById('incomeList').innerHTML += `<li>+ $${amount} (${desc})</li>`;
+        updateBalance();
+        document.getElementById('incomeAmount').value = '';
+        document.getElementById('incomeDesc').value = '';
+      } else {
+        alert('Please enter a valid amount and description.');
+      }
+    }
+
+    function addExpense() {
+      const amount = parseFloat(document.getElementById('expenseAmount').value);
+      const desc = document.getElementById('expenseDesc').value.trim();
+      if (!isNaN(amount) && amount > 0 && desc !== '') {
+        balance -= amount;
+        document.getElementById('expenseList').innerHTML += `<li>- $${amount} (${desc})</li>`;
+        updateBalance();
+        document.getElementById('expenseAmount').value = '';
+        document.getElementById('expenseDesc').value = '';
+      } else {
+        alert('Please enter a valid amount and description.');
+      }
+    }
+
+    function clearBalance() {
+      balance = 0;
+      updateBalance();
+      document.getElementById('incomeList').innerHTML = '';
+      document.getElementById('expenseList').innerHTML = '';
+    }
+  </script>
+</body>
+</html>
