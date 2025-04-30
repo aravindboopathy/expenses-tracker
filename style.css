@@ -1,0 +1,89 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image: url(https://img.freepik.com/premium-photo/shiny-glowing-affects-abstract-background-design-caribbean-green-color_851755-73355.jpg?semt=ais_hybrid&w=740);
+    color: #0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .container {
+    width: 100%;
+    max-width: 450px;
+    background: #110;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #0f0;
+  }
+
+  h2, h3 {
+    text-align: center;
+    color: #0f0;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  input[type="text"],
+  input[type="password"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: none;
+    border-radius: 5px;
+    background: #222;
+    color: #0f0;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #0f0;
+    color: #000;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .toggle {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .toggle span {
+    color: #0f0;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  #expensesPage {
+    display: none;
+  }
+
+  .section {
+    margin-top: 20px;
+  }
+
+  .balance {
+    text-align: center;
+    font-size: 20px;
+    margin: 10px 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  li {
+    background: #222;
+    margin: 5px 0;
+    padding: 8px;
+    border-radius: 5px;
+  }
